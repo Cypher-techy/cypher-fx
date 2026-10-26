@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "CYPHERFX — Your edge in every market",
+  title: "CYPHERFX — Your next move. In focus.",
   description:
-    "Your trading workspace. Practice with confidence. Build your edge.",
+    "A focused forex practice website with interactive charts, virtual trading and clear risk-planning tools. Live services are not yet available.",
 };
 export default function RootLayout({
   children,

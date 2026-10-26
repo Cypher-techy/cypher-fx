@@ -289,6 +289,8 @@ export default function Workspace() {
     setDark(localStorage.getItem("cypher-theme") === "dark");
     const params = new URLSearchParams(location.search);
     const requestedSymbol = params.get("symbol");
+    if (params.get("view") === "terminal") setPage("Trading terminal");
+    if (params.get("view") === "support") setPage("Support center");
     if (
       requestedSymbol &&
       [

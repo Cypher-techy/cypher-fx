@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ArrowLeft, ArrowUpRight, RefreshCw } from "lucide-react";
-import { WebBrand } from "./website";
+import { WebBrand } from "./website/brand";
 import "./website.css";
 export default function WebsiteStatus() {
   const [health, setHealth] = useState<Record<string, unknown> | null>(null),

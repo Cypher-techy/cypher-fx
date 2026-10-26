@@ -12,7 +12,7 @@ test("homepage market data updates, pauses and changes instruments and timeframe
   await expect(page.getByTestId("hero-quote")).not.toHaveText("Connecting…");
   await expect(page.getByTestId("hero-quote")).toHaveText(/\d+\.\d+/);
   await expect(
-    page.getByText("SYNTHETIC TRAINING REPLAY", { exact: true }),
+    page.getByText("SYNTHETIC REPLAY", { exact: true }),
   ).toBeVisible();
   const sequence = await page.getByTestId("market-sequence").innerText();
   await expect(page.getByTestId("market-sequence")).not.toHaveText(sequence, {
@@ -27,8 +27,10 @@ test("homepage market data updates, pauses and changes instruments and timeframe
   await page
     .getByRole("button", { name: "Resume market replay", exact: true })
     .click();
-  await page.getByRole("button", { name: "View USD/JPY", exact: true }).click();
-  await expect(page.locator(".dm-chart-name h3")).toHaveText("USD/JPY");
+  await page
+    .getByRole("combobox", { name: "Select trading instrument" })
+    .selectOption("USD_JPY");
+
   await expect(page.getByTestId("hero-quote")).toHaveText(/\d{3}\.\d{3}/);
   await page
     .getByRole("group", { name: "Chart timeframe", exact: true })
@@ -36,8 +38,13 @@ test("homepage market data updates, pauses and changes instruments and timeframe
     .click();
   await expect(
     page
-      .getByRole("group", { name: "Hero chart timeframe" })
+      .getByRole("group", { name: "Chart timeframe" })
       .getByRole("button", { name: "5M", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await page.goto("/markets");
+  await expect(page.locator(".dm-chart-name h3")).toHaveText("USD/JPY");
+  await expect(
+    page.getByRole("button", { name: "5M", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("tab", { name: "Details", exact: true }).click();
   await expect(
@@ -45,15 +52,15 @@ test("homepage market data updates, pauses and changes instruments and timeframe
   ).toContainText("100,000 base units");
   await page.getByRole("link", { name: "Practice with USD/JPY" }).click();
   await expect(
-    page.getByRole("heading", { name: /Welcome back/ }),
-  ).toBeVisible();
+    page.getByRole("heading", { name: /Trading terminal/ }),
+  ).toBeVisible({ timeout: 15000 });
   await expect(page.locator(".symbol-select strong")).toHaveText("USD/JPY");
   expect(runtimeErrors).toEqual([]);
 });
 test("search, category filters and favorites persist on the website", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/markets");
   await expect(page.getByTestId("quote-EUR_USD")).toHaveText(/\d/);
   await page
     .getByRole("textbox", { name: "Search currency pairs" })
@@ -105,7 +112,7 @@ test("search, category filters and favorites persist on the website", async ({
 test("account tabs, FAQ search and server-side estimates work without moving money", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/accounts");
   await page.getByRole("tab", { name: "Real account", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "A foundation for real trading." }),
@@ -117,6 +124,7 @@ test("account tabs, FAQ search and server-side estimates work without moving mon
   await expect(
     page.getByRole("heading", { name: "Your space to practice." }),
   ).toBeVisible();
+  await page.goto("/tools");
   await page
     .getByRole("combobox", { name: "Calculator instrument" })
     .selectOption("USD_JPY");
@@ -140,6 +148,7 @@ test("account tabs, FAQ search and server-side estimates work without moving mon
       exact: false,
     }),
   ).toBeVisible();
+  await page.goto("/help");
   await page
     .getByRole("textbox", { name: "Search frequently asked questions" })
     .fill("M-Pesa");
@@ -186,7 +195,7 @@ test("data failures remain visible rather than showing fabricated live prices", 
   );
   await page.goto("/");
   await expect(
-    page.getByText("Data unavailable — last values may be stale"),
+    page.getByText("The preview feed could not be reached."),
   ).toBeVisible();
   await expect(
     page.getByText(

@@ -1,6 +1,6 @@
 # CYPHERFX
 
-### Your ambition. A world of opportunity.
+### Your next move. In focus.
 
 A functional **development foundation** for a forex trading workspace. Built from a clean working tree with Next.js 16, React 19, TypeScript, Tailwind 4, Drizzle and PostgreSQL. **Not production-ready; do not accept customer funds.**
 
@@ -15,7 +15,11 @@ npm run dev
 
 ## Website routes
 
-- `/` — interactive public CYPHERFX website with server-fed market explorer, synthetic replay, persistent favorites, search/filter, timeframe and pause controls, account comparison tabs, FAQ search, educational margin/pip calculator and account-aware navigation.
+- `/` — concise, chart-first trading website with a dark forest palette, interactive synthetic replay, quick pairs, timeframe/pause/refresh controls and a separate server-priced practice-order review panel. Mobile Chart/Order tabs keep the main view focused.
+- `/markets` — full six-pair explorer with search, region filters, persistent favorites, details and chart controls.
+- `/accounts` — tabbed demo/real account comparison and server-configured starting virtual balance.
+- `/tools` — educational, server-calculated margin/pip estimator.
+- `/help` — searchable FAQs, private-support entry and full risk/development disclosure.
 - `/register` and `/login` — functional browser-based registration and login.
 - `/verify-email`, `/forgot-password`, `/reset-password` — working verification/recovery forms.
 - `/dashboard` — authenticated/practice trading workspace, wallet, support and staff views.
@@ -23,7 +27,7 @@ npm run dev
 
 No separate mobile or desktop application is needed. All screens run in the browser. This structure does **not** imply that the blocked real-money services have been enabled.
 
-No external credentials are needed for local practice. A unique, server-side practice session is created automatically in **development only**. Initial balance is **USD 10,000 in virtual funds**. Quotes and charts are explicitly **synthetic training fixtures**, not live market data. Place/close practice trades, create/cancel pending orders, reset demo funds, explore the KSh wallet, submit support tickets, register a personal account and change settings.
+No external credentials are needed for local practice. A unique, server-side practice session is created in **development only** when entering the demo workspace or explicitly reviewing a homepage practice order. A passive homepage visit creates no account or order. Initial balance is **USD 10,000 in virtual funds**. Quotes and charts are explicitly **synthetic training fixtures**, not live market data. Place/close practice trades, create/cancel pending orders, reset demo funds, explore the KSh wallet, submit support tickets, register a personal account and change settings.
 
 ### Commands
 
@@ -82,7 +86,7 @@ Bootstrap never elevates an existing customer. A production recovery/enrollment 
 
 Configuration alone is **not** proof of legal authorization. See [delivery status](docs/DELIVERY.md) for the acceptance matrix and every major unfinished requirement; [architecture](docs/ARCHITECTURE.md), [API](docs/API.md) and [deployment/security](docs/OPERATIONS.md) for details.
 
-- **Public website market data:** default is an explicitly labeled synthetic replay, not live forex prices. `ENABLE_PUBLIC_MARKET_DATA=true` requires separately confirmed redistribution rights and valid configured provider credentials; it fails visibly if unavailable. The public preview never submits orders.
+- **Public website market data:** default is an explicitly labeled synthetic replay, not live forex prices. `ENABLE_PUBLIC_MARKET_DATA=true` requires separately confirmed redistribution rights and valid configured provider credentials; it fails visibly if unavailable. The public quote endpoint never supplies execution evidence. The homepage has a separate authenticated practice-order workflow: review uses `/market`, explicit confirmation submits to `/demo/orders`, and all prices, margin and risk checks are enforced on the server. Real execution is never called.
 - **Market data:** set `MARKET_DATA_PROVIDER=oanda`, `OANDA_ENV=practice`, `OANDA_API_TOKEN`, `OANDA_ACCOUNT_ID`. Confirm your OANDA agreement permits the proposed use/redistribution. No credentials were provided or tested against an external account.
 - **Live trading:** authorized provider adapter, trading account lifecycle, order reconciliation and broker agreements are still required. Orders fail closed, never fabricate fills.
 - **M-Pesa:** supply Daraja sandbox values in `.env.example`; onboard the callback URL and test with Safaricom. Callbacks and an STK status query alone do not establish a verified receipt amount/phone. Complete the approved receipt-reconciliation adapter before connecting `settleVerifiedDeposit` to a trusted worker. There is no public “mark successful” route.

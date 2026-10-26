@@ -1,7 +1,11 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { PublicMarket } from "@/lib/website/market";
-export function usePublicMarket(symbol: string, timeframe: string) {
+export function usePublicMarket(
+  symbol: string,
+  timeframe: string,
+  enabled = true,
+) {
   const [data, setData] = useState<PublicMarket | null>(null),
     [error, setError] = useState(""),
     [loading, setLoading] = useState(true),
@@ -14,6 +18,10 @@ export function usePublicMarket(symbol: string, timeframe: string) {
   const refresh = useCallback(() => setRefreshKey((k) => k + 1), []),
     inFlight = useRef(false);
   useEffect(() => {
+    if (!enabled) {
+      setLoading(false);
+      return;
+    }
     let active = true;
     const controller = new AbortController();
     inFlight.current = false;
@@ -64,7 +72,7 @@ export function usePublicMarket(symbol: string, timeframe: string) {
       clearInterval(timer);
       document.removeEventListener("visibilitychange", visible);
     };
-  }, [symbol, timeframe, refreshKey]);
+  }, [symbol, timeframe, refreshKey, enabled]);
   useEffect(() => {
     if (paused || !lastReceived) return;
     const timer = setInterval(() => {

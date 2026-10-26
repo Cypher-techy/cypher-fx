@@ -11,7 +11,7 @@ import {
   LockKeyhole,
   ShieldCheck,
 } from "lucide-react";
-import { WebBrand } from "./website";
+import { WebBrand } from "./website/brand";
 import "./website.css";
 type Mode = "login" | "register" | "forgot" | "reset" | "verify";
 const titles: Record<Mode, string> = {

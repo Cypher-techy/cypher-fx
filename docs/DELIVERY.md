@@ -2,6 +2,8 @@
 
 ## Status
 
+Latest UI milestone: concise chart-first website with `/markets`, `/accounts`, `/tools` and `/help`. Current verification: **27 unit/domain tests and 15 browser tests**. Earlier phase descriptions and counts below are historical; the latest milestone at the end supersedes the long landing-page layout.
+
 **Working development foundation, not a complete production forex brokerage.** Live customer funds, execution and payouts remain disabled. No production deployment, external provider success, licensing decision or completed recovery drill is claimed.
 
 ## Phase handover
@@ -78,3 +80,26 @@ The public website now uses real HTTP endpoints rather than static market illust
 Account comparison tabs switch visible cards; the starting virtual balance loads from server configuration. Website navigation recognizes existing sessions without exposing private balances. The margin/pip estimator is validated and calculated with Decimal on the server, uses a synthetic reference, and cannot trade or change wallets. FAQ search includes empty states. Sticky navigation, reading progress, reveal transitions, and back-to-top respect reduced-motion settings.
 
 No schema migration or real-money state transition is introduced. Additional validation: **27 total unit/domain tests, 10 browser tests**, production build and typecheck pass. Browser tests cover replay updates/pause, pair/timeframe selection, dashboard deep-link symbol, filters/favorites persistence, account tabs, FAQ search, server estimates, session-aware navigation and visible provider failure. Original live-money/provider/legal/recovery limitations remain unchanged.
+
+
+## Concise trading-first refinement
+
+**Design brief:** shorter NadsFX-style entry, with applicable Eatnaked-inspired editorial hierarchy, pill controls, subtle transitions and clear exploration paths. The exact supplied `eatnaked.com` did not respond here; the accessible `eatnaked.co` was reviewed instead, alongside `nadsfx.com`. CYPHERFX retains independent branding, layout and assets; no reference site's code, product imagery, online-user counts, winners or financial claims were copied.
+
+### Changed files and behavior
+
+- `src/components/website.tsx`: replaces the long marketing scroll with a brief headline, primary chart, pair/timeframe controls, source/failure labels and order panel. No carousel or fake preloader obstructs the chart.
+- `src/components/website/{landing.css,public-shell.tsx,brand.tsx}`: forest/ivory/lime palette, typographic hierarchy, pill controls, responsive navigation, compact footer and reduced-motion-aware transitions.
+- `src/components/website/{use-context.ts,use-market.ts}`: shared session/configuration, persisted market preferences and conditional polling (no unnecessary market polling on account/help/tools pages).
+- `src/components/website/{details.tsx,content.ts}` and `src/app/{markets,accounts,tools,help}/page.tsx`: existing functional explorer, estimator, account comparison and FAQs moved to focused routes rather than removed.
+- `src/components/website/order-ticket.tsx`: Buy/Sell, volume presets and optional SL/TP. Explicit Review creates/uses a development practice session, retrieves an authenticated practice-engine quote and shows a focus-trapped confirmation dialog. Only explicit confirmation calls the existing demo order endpoint, with a stable per-review idempotency key. Fill feedback uses the returned persisted order, never the homepage replay. The portal dialog survives desktop→mobile resize; Escape, focus restoration and scroll lock are supported. The Real tab remains an unavailable notice with no real-money API call.
+- `src/components/workspace.tsx` and explorer links: validated instrument plus `view=terminal`/`view=support` deep links. Auth/status imports use the shared brand module. Metadata and README/API documentation updated.
+- `tests/e2e/{website,dynamic-website,trading-landing}.spec.ts`: updated navigation coverage and five additional tests for review/confirmation with real-wallet isolation, locked real mode, mobile/keyboard navigation, execution-feed failure and server rejection of invalid stop loss.
+
+**Schema / financial services:** no migration, financial service change, real-money enablement or public authorization change. The chart replay is read-only and explicitly synthetic; it is distinct from the authenticated execution quote shown at order review. Demo execution remains simulated, with all existing server-side ownership, margin, risk and ledger separation intact. Local automatic guest sessions remain development-only.
+
+**Verification:** typecheck, 27 unit/domain tests, 15 browser tests and production build pass. Desktop/mobile screenshots show no runtime or hydration errors; width checks include 320, 360, 390, 621, 768, 1024 and 1440 pixels. The first concurrent production build did not complete within its wait window; an isolated production build with a bounded Node heap completed successfully. The live preview is restarted after build verification.
+
+**Local preview storage note:** the restored embedded practice database could not initialize. The server was stopped, its original files were preserved (not deleted) at `.data/postgres-preserved-20261026`, and the development preview initialized a fresh `.data/postgres`. Existing browser sessions from the previous local data set may require a fresh sign-in or new practice session. These private/test database files are not included in the source archive. No real customer funds are enabled in this environment.
+
+**Limitations / next milestone:** this is a functional development website, not an authorized live brokerage. The existing provider, payment, KYC/security, legal and managed-database recovery requirements above remain open. Next: stakeholder visual sign-off, then credentialed sandbox/provider integration and production-readiness verification—not real-money enablement.

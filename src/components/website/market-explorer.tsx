@@ -292,7 +292,7 @@ export function MarketExplorer({
                 {feed.paused ? <Play size={13} /> : <Pause size={13} />}
               </button>
               <Link
-                href={"/dashboard?symbol=" + symbol}
+                href={"/dashboard?symbol=" + symbol + "&view=terminal"}
                 aria-label={"Practice " + symbol.replace("_", "/")}
               >
                 <ArrowUpRight size={15} />
@@ -416,7 +416,10 @@ export function MarketExplorer({
           {feed.data?.attribution ??
             "No provider prices are implied. Prices load only from the server response."}
         </p>
-        <Link href={"/dashboard?symbol=" + symbol} className="web-text-link">
+        <Link
+          href={"/dashboard?symbol=" + symbol + "&view=terminal"}
+          className="web-text-link"
+        >
           Practice with {symbol.replace("_", "/")} <ArrowUpRight size={13} />
         </Link>
       </div>

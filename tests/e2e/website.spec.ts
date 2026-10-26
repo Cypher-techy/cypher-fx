@@ -9,7 +9,7 @@ test("public website has working navigation, honest statuses and a browser termi
   });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /The markets move/ }),
+    page.getByRole("heading", { name: /Your next move/ }),
   ).toBeVisible();
   await expect(
     page.getByText(
@@ -21,6 +21,7 @@ test("public website has working navigation, honest statuses and a browser termi
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  await page.goto("/help");
   await page
     .getByRole("button", { name: "How will withdrawals be approved?" })
     .click();
@@ -44,8 +45,9 @@ test("public website has working navigation, honest statuses and a browser termi
     .getByRole("link", { name: "Explore the demo", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: /Welcome back/ }),
+    page.getByRole("heading", { name: /Trading terminal/ }),
   ).toBeVisible();
+  expect(hydrationErrors).toEqual([]);
 });
 test("public registration, verification and login are functional", async ({
   page,
@@ -83,7 +85,7 @@ test("public homepage works at mobile widths", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: /The markets move/ }),
+    page.getByRole("heading", { name: /Your next move/ }),
   ).toBeVisible();
   expect(
     await page.evaluate(
