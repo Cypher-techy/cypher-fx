@@ -17,7 +17,7 @@
 | 7 Payments          | `providers/daraja.ts`, callback/API routes                             | pending deposits, immutable evidence                                         | STK OAuth/query implemented, no external credentials; no automatic credit from callback   | Approved receipt reconciliation and sandbox callback tests                       |
 | 8 Withdrawals       | ledger services, payout adapter, admin review UI, worker               | request/review/payout events                                                 | Mandatory role, own-request block, fresh password+TOTP; disabled payout adapter           | Approved B2C + independently verified settlement/failure workflows               |
 | 9 Operations        | role-filtered admin/finance/compliance/support/HR read views           | tickets/notices/audit/staff/internal-message schema                          | Customer tickets and core admin read views; staff workflows incomplete                    | Full staff administration and case-management implementation                     |
-| 10 Quality/docs     | tests/configs, README/API/OPERATIONS/env                               | No extra sample production money                                             | Type check/build/20 domain tests/3 E2E passed                                             | Credentialed integration, real PostgreSQL contention and recovery/security gates |
+| 10 Quality/docs     | tests/configs, README/API/OPERATIONS/env                               | No extra sample production money                                             | Type check/build/20 domain tests/6 E2E passed                                             | Credentialed integration, real PostgreSQL contention and recovery/security gates |
 
 ## Acceptance criteria matrix
 
@@ -56,7 +56,7 @@
 
 - `npm run typecheck`: pass.
 - `npm test`: **20 tests passed** (16 finance/practice and 4 provider/security tests).
-- `npm run test:e2e`: **3 tests passed** (desktop trade/close/pending/cancel/theme/wallet guards, mobile support/navigation/search, HTTP registration/verification/reset/security).
+- `npm run test:e2e`: **6 tests passed** (desktop trade/close/pending/cancel/theme/wallet guards, mobile support/navigation/search, HTTP registration/verification/reset/security).
 - `npm run build`: pass (Next.js 16.4.3).
 - Chromium manual screenshots: desktop 1440px and mobile 390px; no horizontal page overflow; no uncaught browser runtime errors in tested workflows.
 - `npm audit --omit=dev`: 0 known production dependency vulnerabilities at build time. Development toolchain audit retains moderate transitive `drizzle-kit`/esbuild issues; full dependency review is still a deployment gate.
@@ -66,3 +66,7 @@ Tests use synthetic provider inputs/local fixtures, never invented successful ex
 ## Repository state
 
 The replacement is prepared in `/home/user/cypher-fx` with Git history intact. The exposed token was not used or saved. GitHub connector was reported unsupported by the environment. **No remote deletion/push occurred.** Publish only with a newly issued, securely configured least-privilege credential. Revoke the token pasted in the request. Original archives are recoverable from the existing Git history, not included in the new source archive.
+
+## Public website follow-up
+
+The root now serves a public forex website rather than opening directly into the dashboard. Working routes: `/register`, `/login`, `/verify-email`, `/forgot-password`, `/reset-password`, `/dashboard`, `/status`. A further three browser tests verify public navigation, mobile layout, and real registration→verification→login HTTP workflows. Development email links use same-origin relative routes when APP_BASE_URL is not set, avoiding links to the visitor’s own localhost. All original live-provider/payment/regulatory blockers remain unchanged. No public hosting account or domain has been provisioned.

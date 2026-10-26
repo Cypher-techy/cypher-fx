@@ -13,6 +13,16 @@ npm run dev
 # open http://localhost:3000
 ```
 
+## Website routes
+
+- `/` — public CYPHERFX website with markets, platform, accounts, FAQs and risk disclosure.
+- `/register` and `/login` — functional browser-based registration and login.
+- `/verify-email`, `/forgot-password`, `/reset-password` — working verification/recovery forms.
+- `/dashboard` — authenticated/practice trading workspace, wallet, support and staff views.
+- `/status` — honest public configuration/availability status.
+
+No separate mobile or desktop application is needed. All screens run in the browser. This structure does **not** imply that the blocked real-money services have been enabled.
+
 No external credentials are needed for local practice. A unique, server-side practice session is created automatically in **development only**. Initial balance is **USD 10,000 in virtual funds**. Quotes and charts are explicitly **synthetic training fixtures**, not live market data. Place/close practice trades, create/cancel pending orders, reset demo funds, explore the KSh wallet, submit support tickets, register a personal account and change settings.
 
 ### Commands

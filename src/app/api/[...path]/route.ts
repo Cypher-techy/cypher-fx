@@ -56,7 +56,7 @@ const staffRoles = [
   "HR",
 ];
 async function emailToken(email: string, token: string, purpose: string) {
-  const link = `${process.env.APP_BASE_URL ?? "http://localhost:3000"}/?${purpose === "verify" ? "verify" : "reset"}=${token}`;
+  const link = `${process.env.APP_BASE_URL ?? ""}/${purpose === "verify" ? "verify-email" : "reset-password"}?token=${token}`;
   if (process.env.RESEND_API_KEY && process.env.EMAIL_FROM) {
     const r = await fetch("https://api.resend.com/emails", {
       method: "POST",

@@ -4,7 +4,7 @@ test("desktop practice trade, close, pending order and wallet isolation", async 
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
+  await page.goto("/dashboard");
   await expect(
     page.getByRole("heading", { name: /Welcome back/ }),
   ).toBeVisible();
@@ -61,7 +61,7 @@ test("responsive navigation, search, learning and private support", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
+  await page.goto("/dashboard");
   await expect(
     page.getByRole("heading", { name: /Welcome back/ }),
   ).toBeVisible();
@@ -108,9 +108,10 @@ test("registration, verification, reset, session isolation and unauthorized appr
   });
   expect(r.ok()).toBeTruthy();
   const registration = await r.json();
-  const verify = new URL(registration.data.developmentLink).searchParams.get(
-    "verify",
-  );
+  const verify = new URL(
+    registration.data.developmentLink,
+    "http://127.0.0.1:3000",
+  ).searchParams.get("token");
   r = await request.post("/api/auth/verify", { data: { token: verify } });
   expect(r.ok()).toBeTruthy();
   let state = await request.get("/api/state").then((r) => r.json());
@@ -147,7 +148,10 @@ test("registration, verification, reset, session isolation and unauthorized appr
   await other.dispose();
   r = await request.post("/api/auth/forgot", { data: { email } });
   const forgot = await r.json();
-  const token = new URL(forgot.data.developmentLink).searchParams.get("reset");
+  const token = new URL(
+    forgot.data.developmentLink,
+    "http://127.0.0.1:3000",
+  ).searchParams.get("token");
   expect(
     (
       await request.post("/api/auth/reset", {
