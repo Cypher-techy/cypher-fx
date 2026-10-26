@@ -288,6 +288,19 @@ export default function Workspace() {
       } catch {}
     setDark(localStorage.getItem("cypher-theme") === "dark");
     const params = new URLSearchParams(location.search);
+    const requestedSymbol = params.get("symbol");
+    if (
+      requestedSymbol &&
+      [
+        "EUR_USD",
+        "GBP_USD",
+        "USD_JPY",
+        "AUD_USD",
+        "USD_CHF",
+        "USD_CAD",
+      ].includes(requestedSymbol)
+    )
+      setSymbol(requestedSymbol);
     if (params.has("verify")) {
       api("auth/verify", { token: params.get("verify") })
         .then((d) => notify(d.message))

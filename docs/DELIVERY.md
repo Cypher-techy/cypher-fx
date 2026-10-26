@@ -70,3 +70,11 @@ The replacement is prepared in `/home/user/cypher-fx` with Git history intact. T
 ## Public website follow-up
 
 The root now serves a public forex website rather than opening directly into the dashboard. Working routes: `/register`, `/login`, `/verify-email`, `/forgot-password`, `/reset-password`, `/dashboard`, `/status`. A further three browser tests verify public navigation, mobile layout, and real registration→verification→login HTTP workflows. Development email links use same-origin relative routes when APP_BASE_URL is not set, avoiding links to the visitor’s own localhost. All original live-provider/payment/regulatory blockers remain unchanged. No public hosting account or domain has been provisioned.
+
+## Dynamic website update
+
+The public website now uses real HTTP endpoints rather than static market illustrations. The homepage includes a polling market explorer (5-second synthetic replay by default), pair/timeframe selection linked to the hero, zoomable candlesticks, bid/ask/spread, explicit source and failure warnings, manual pause/resume/refresh, searchable regional filters, locally saved favorites, last market preferences, a Details view, and pair-preserving links into `/dashboard`. No public quote is execution evidence.
+
+Account comparison tabs switch visible cards; the starting virtual balance loads from server configuration. Website navigation recognizes existing sessions without exposing private balances. The margin/pip estimator is validated and calculated with Decimal on the server, uses a synthetic reference, and cannot trade or change wallets. FAQ search includes empty states. Sticky navigation, reading progress, reveal transitions, and back-to-top respect reduced-motion settings.
+
+No schema migration or real-money state transition is introduced. Additional validation: **27 total unit/domain tests, 10 browser tests**, production build and typecheck pass. Browser tests cover replay updates/pause, pair/timeframe selection, dashboard deep-link symbol, filters/favorites persistence, account tabs, FAQ search, server estimates, session-aware navigation and visible provider failure. Original live-money/provider/legal/recovery limitations remain unchanged.

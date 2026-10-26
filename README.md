@@ -15,7 +15,7 @@ npm run dev
 
 ## Website routes
 
-- `/` — public CYPHERFX website with markets, platform, accounts, FAQs and risk disclosure.
+- `/` — interactive public CYPHERFX website with server-fed market explorer, synthetic replay, persistent favorites, search/filter, timeframe and pause controls, account comparison tabs, FAQ search, educational margin/pip calculator and account-aware navigation.
 - `/register` and `/login` — functional browser-based registration and login.
 - `/verify-email`, `/forgot-password`, `/reset-password` — working verification/recovery forms.
 - `/dashboard` — authenticated/practice trading workspace, wallet, support and staff views.
@@ -82,6 +82,7 @@ Bootstrap never elevates an existing customer. A production recovery/enrollment 
 
 Configuration alone is **not** proof of legal authorization. See [delivery status](docs/DELIVERY.md) for the acceptance matrix and every major unfinished requirement; [architecture](docs/ARCHITECTURE.md), [API](docs/API.md) and [deployment/security](docs/OPERATIONS.md) for details.
 
+- **Public website market data:** default is an explicitly labeled synthetic replay, not live forex prices. `ENABLE_PUBLIC_MARKET_DATA=true` requires separately confirmed redistribution rights and valid configured provider credentials; it fails visibly if unavailable. The public preview never submits orders.
 - **Market data:** set `MARKET_DATA_PROVIDER=oanda`, `OANDA_ENV=practice`, `OANDA_API_TOKEN`, `OANDA_ACCOUNT_ID`. Confirm your OANDA agreement permits the proposed use/redistribution. No credentials were provided or tested against an external account.
 - **Live trading:** authorized provider adapter, trading account lifecycle, order reconciliation and broker agreements are still required. Orders fail closed, never fabricate fills.
 - **M-Pesa:** supply Daraja sandbox values in `.env.example`; onboard the callback URL and test with Safaricom. Callbacks and an STK status query alone do not establish a verified receipt amount/phone. Complete the approved receipt-reconciliation adapter before connecting `settleVerifiedDeposit` to a trusted worker. There is no public “mark successful” route.

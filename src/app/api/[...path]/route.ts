@@ -32,6 +32,11 @@ import {
   margin,
 } from "@/lib/services/demo";
 import Decimal from "decimal.js";
+import {
+  publicMarket,
+  publicInstruments,
+  estimateTrade,
+} from "@/lib/website/market";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const phone = z
@@ -139,6 +144,70 @@ async function handler(
             : "not-configured",
         },
       });
+    if (route === "public/config" && method === "GET") {
+      const configuredBalance = new Decimal(
+        process.env.DEMO_STARTING_BALANCE ?? "10000",
+      );
+      return NextResponse.json({
+        ok: true,
+        data: {
+          instruments: publicInstruments,
+          demoStartingBalance: configuredBalance.toFixed(2),
+          liveTrading: false,
+          paymentsAvailable: false,
+          publicMarketSource:
+            process.env.ENABLE_PUBLIC_MARKET_DATA === "true"
+              ? "provider"
+              : "synthetic-replay",
+        },
+      });
+    }
+    if (route === "public/session" && method === "GET") {
+      let user: { name: string; role: string; practice: boolean } | null = null;
+      if ((await cookies()).has("cypher_session")) {
+        try {
+          const current = await currentUser();
+          user = {
+            name: current.name,
+            role: current.role,
+            practice: current.email.endsWith("@local.invalid"),
+          };
+        } catch (e) {
+          if (!(e instanceof AppError && [401, 403].includes(e.status)))
+            throw e;
+        }
+      }
+      return NextResponse.json(
+        { ok: true, data: { user } },
+        { headers: { "Cache-Control": "private, no-store" } },
+      );
+    }
+    if (route === "public/market" && method === "GET") {
+      const data = await publicMarket(
+        req.nextUrl.searchParams.get("symbol") ?? "EUR_USD",
+        req.nextUrl.searchParams.get("timeframe") ?? "1h",
+      );
+      return NextResponse.json(
+        { ok: true, data },
+        { headers: { "Cache-Control": "no-store" } },
+      );
+    }
+    if (route === "public/calculator" && method === "POST") {
+      const v = z
+        .object({
+          symbol: z.enum(symbols as [string, ...string[]]),
+          lots: z.string().regex(/^\d{1,3}(\.\d{1,2})?$/),
+          leverage: z.union([
+            z.literal(10),
+            z.literal(30),
+            z.literal(50),
+            z.literal(100),
+          ]),
+        })
+        .parse(body);
+      await rateLimit("public-calculator", 2000);
+      return NextResponse.json({ ok: true, data: estimateTrade(v) });
+    }
     if (route === "auth/guest" && method === "POST") {
       requireThat(
         process.env.NODE_ENV !== "production" &&

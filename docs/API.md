@@ -52,3 +52,16 @@ EUR_USD, GBP_USD, USD_JPY, AUD_USD, USD_CHF, USD_CAD. 1m, 5m, 15m, 1h, 4h, 1d. P
 ## Not implemented
 
 Live order cancellation/reconciliation, independently authenticated payment receipt/payout reconciliation endpoints, OAuth, self-service MFA enrollment, KYC uploads/provider callbacks, role-request approvals, staff message APIs, ticket replies/assignment and rich statements. These are not silently represented as working endpoints. See delivery matrix.
+
+## Dynamic public website endpoints
+
+These endpoints are read-only or educational; they cannot authorize trades or move funds.
+
+| Method | Route                                        | Behavior                                                                                                                                                                                                                                                        |
+| ------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/public/config`                             | Public instrument catalog, configured virtual starting balance, unavailable live-service flags                                                                                                                                                                  |
+| GET    | `/public/session`                            | Optional current-session name/role/practice indicator only; private no-store; no balances or email returned                                                                                                                                                     |
+| GET    | `/public/market?symbol=EUR_USD&timeframe=1h` | Six quotes and selected historical candles. Default is explicitly synthetic, historical replay (one candle every five seconds, 70-step looping replay). `sequence` is a replay update identifier, not provider execution evidence. No ledger or wallet effects. |
+| POST   | `/public/calculator`                         | `{symbol,lots:"0.10",leverage:10\|30\|50\|100}`; server-side Decimal educational estimate of margin and pip value. Always synthetic reference; never an order or live margin quote.                                                                             |
+
+`ENABLE_PUBLIC_MARKET_DATA=false` by default. Public provider data is separately opt-in only after redistribution rights are confirmed. Enabling it without valid configured provider credentials fails closed. Credentialed provider data is cached briefly on the server to reduce request fan-out; this is not a production distributed feed gateway. Errors remain visible; no synthetic data silently replaces a failed provider feed. Public replay prices are intentionally separate from the practice execution service. Browser polling pauses in hidden tabs; manual pause freezes the preview, and an explicit refresh may fetch while paused. Favorites and selected symbol/timeframe persist locally on the visitor’s device.

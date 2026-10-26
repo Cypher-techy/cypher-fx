@@ -71,6 +71,13 @@ test("public registration, verification and login are functional", async ({
   await expect(
     page.getByRole("heading", { name: /Welcome back, Website/ }),
   ).toBeVisible();
+  await page.goto("/");
+  await expect(
+    page.getByRole("link", { name: "Hi, Website", exact: false }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "My dashboard", exact: true }),
+  ).toBeVisible();
 });
 test("public homepage works at mobile widths", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
