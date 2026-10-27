@@ -2944,3 +2944,45 @@ select:focus-visible,
 textarea:focus-visible {
   outline-color: #6aa5ff;
 }
+
+/* Green/red are reserved for trade direction, independent of the blue brand theme. */
+:root {
+  --trade-buy: #15803d;
+  --trade-buy-hover: #166534;
+  --trade-sell: #dc2626;
+  --trade-sell-hover: #b91c1c;
+}
+:root .side-buttons button.buy,
+:root .side-buttons button.buy.selected,
+:root .trade-execution.buy,
+:root .cx-confirm-modal .cx-ticket-submit.buy {
+  background: var(--trade-buy);
+  border-color: var(--trade-buy);
+  color: #fff;
+}
+:root .side-buttons button.sell,
+:root .side-buttons button.sell.selected,
+:root .trade-execution.sell,
+:root .cx-confirm-modal .cx-ticket-submit.sell {
+  background: var(--trade-sell);
+  border-color: var(--trade-sell);
+  color: #fff;
+}
+:root .side-buttons button.buy:hover,
+:root .side-buttons button.buy.selected:hover,
+:root .trade-execution.buy:hover,
+:root .cx-confirm-modal .cx-ticket-submit.buy:hover {
+  background: var(--trade-buy-hover);
+  border-color: var(--trade-buy-hover);
+}
+:root .side-buttons button.sell:hover,
+:root .side-buttons button.sell.selected:hover,
+:root .trade-execution.sell:hover,
+:root .cx-confirm-modal .cx-ticket-submit.sell:hover {
+  background: var(--trade-sell-hover);
+  border-color: var(--trade-sell-hover);
+}
+:root .side-buttons button[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px #ffffffb3;
+  font-weight: 600;
+}

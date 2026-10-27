@@ -2,7 +2,7 @@
 
 ## Status
 
-Latest UI milestone: concise chart-first website with `/markets`, `/accounts`, `/tools` and `/help`. Current verification: **27 unit/domain tests and 16 browser tests**. Earlier phase descriptions and counts below are historical; the latest milestone at the end supersedes the long landing-page layout.
+Latest UI milestone: concise chart-first website with `/markets`, `/accounts`, `/tools` and `/help`. Current verification: **27 unit/domain tests and 17 browser tests**. Earlier phase descriptions and counts below are historical; the latest milestone at the end supersedes the long landing-page layout.
 
 **Working development foundation, not a complete production forex brokerage.** Live customer funds, execution and payouts remain disabled. No production deployment, external provider success, licensing decision or completed recovery drill is claimed.
 
@@ -114,3 +114,10 @@ No schema migration or financial calculation/authorization change. Theme regress
 Preview-only storage limitation: the restored file-backed PGlite store still cannot initialize. Its files have not been deleted, renamed or overwritten for this update. Browser validation and the running development preview use the existing `TEST_DB=true` option to isolate practice accounts in memory. Preview demo users, positions and support data are therefore temporary and reset when the server process stops. Normal source-code storage defaults and production PostgreSQL requirements are unchanged. Database recovery remains a separate outstanding task.
 
 The next milestone is visual sign-off on the blue/black palette. This update does not enable live trading or real-money payments.
+
+
+## Semantic Buy/Sell button colors
+
+Buy buttons are green (`#15803d`) and Sell buttons red (`#dc2626`) on the homepage and terminal, including the final practice confirmation and terminal order-submission action. Both buttons retain their direction color when unselected; hover shades remain green/red. A white inset selection border and `aria-pressed` indicate the selected direction independently of hue. The surrounding blue/black branding remains unchanged.
+
+Changed `src/app/globals.css`, `src/components/website/landing.css`, `src/components/website/order-ticket.tsx`, `src/components/workspace.tsx` and `tests/e2e/theme.spec.ts`. No migration, provider change, trade-execution logic or financial-gate change. Regression coverage checks both sides before/after selection, mobile layout, dark/light terminal themes and the direction-specific order action. Validation: **17 browser tests, 27 unit/domain tests, typecheck and production build pass**. Unit tests and build were run in isolation after the initial concurrent test process exhausted available resources. The temporary in-memory preview-data limitation documented above remains unchanged.

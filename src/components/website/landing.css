@@ -662,16 +662,7 @@
   background: #121724;
   transition: background 0.15s;
 }
-.cx-side-toggle > button.buy.selected {
-  color: #e6efff;
-  background: #2878ef;
-  border-color: #27344c;
-}
-.cx-side-toggle > button.sell.selected {
-  color: #e4c9b9;
-  background: #6d5144;
-  border-color: #997261;
-}
+
 .cx-side-toggle > button.sell > svg {
   transform: rotate(90deg);
 }
@@ -3442,11 +3433,7 @@
 .cx-confirm-modal .cx-ticket-submit:hover {
   background: #1e66d7;
 }
-.cx-side-toggle > button.buy.selected {
-  background: #2878ef;
-  border-color: #2878ef;
-  color: #fff;
-}
+
 .cx-symbol-picker > select:focus-visible {
   outline-color: #6aa5ff;
 }
@@ -3454,4 +3441,30 @@
 .cx-confirm-modal a:focus-visible {
   outline: 2px solid #6aa5ff;
   outline-offset: 4px;
+}
+
+/* Trade direction is semantic: Buy stays green and Sell stays red in either state. */
+.cx-side-toggle > button.buy,
+.cx-side-toggle > button.buy.selected {
+  background: var(--trade-buy);
+  border-color: var(--trade-buy);
+  color: #fff;
+}
+.cx-side-toggle > button.sell,
+.cx-side-toggle > button.sell.selected {
+  background: var(--trade-sell);
+  border-color: var(--trade-sell);
+  color: #fff;
+}
+.cx-side-toggle > button.buy:hover {
+  background: var(--trade-buy-hover);
+  border-color: var(--trade-buy-hover);
+}
+.cx-side-toggle > button.sell:hover {
+  background: var(--trade-sell-hover);
+  border-color: var(--trade-sell-hover);
+}
+.cx-side-toggle > button[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px #ffffffb3;
+  font-weight: 600;
 }

@@ -892,7 +892,8 @@ export default function Workspace() {
         <div className="side-buttons">
           <button
             type="button"
-            className={side === "SELL" ? "selected sell" : ""}
+            className={side === "SELL" ? "selected sell" : "sell"}
+            aria-pressed={side === "SELL"}
             onClick={() => setSide("SELL")}
           >
             <span>Sell</span>
@@ -900,7 +901,8 @@ export default function Workspace() {
           </button>
           <button
             type="button"
-            className={side === "BUY" ? "selected buy" : ""}
+            className={side === "BUY" ? "selected buy" : "buy"}
+            aria-pressed={side === "BUY"}
             onClick={() => setSide("BUY")}
           >
             <span>Buy</span>
@@ -999,7 +1001,10 @@ export default function Workspace() {
           </p>
         )}
         <button
-          className={"button full " + (side === "BUY" ? "primary" : "danger")}
+          className={
+            "button full trade-execution " +
+            (side === "BUY" ? "primary buy" : "danger sell")
+          }
           disabled={
             busy ||
             !virtual ||

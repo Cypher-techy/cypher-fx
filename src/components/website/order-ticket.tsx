@@ -239,7 +239,7 @@ export default function OrderTicket({
           <div className="cx-side-toggle">
             <button
               type="button"
-              className={side === "BUY" ? "buy selected" : ""}
+              className={side === "BUY" ? "buy selected" : "buy"}
               aria-pressed={side === "BUY"}
               onClick={() => setSide("BUY")}
             >
@@ -247,7 +247,7 @@ export default function OrderTicket({
             </button>
             <button
               type="button"
-              className={side === "SELL" ? "sell selected" : ""}
+              className={side === "SELL" ? "sell selected" : "sell"}
               aria-pressed={side === "SELL"}
               onClick={() => setSide("SELL")}
             >
@@ -454,7 +454,7 @@ export default function OrderTicket({
                 </p>
               )}
               <button
-                className="cx-ticket-submit"
+                className={"cx-ticket-submit " + prepared.side.toLowerCase()}
                 disabled={busy}
                 onClick={() => void confirm()}
               >
