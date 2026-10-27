@@ -39,8 +39,9 @@ test("desktop practice trade, close, pending order and wallet isolation", async 
     page.getByRole("button", { name: "Cancel", exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Cancel", exact: true }).click();
-  await page.getByTitle("Toggle theme").click();
   expect(await page.locator("html").getAttribute("data-theme")).toBe("dark");
+  await page.getByTitle("Toggle theme").click();
+  expect(await page.locator("html").getAttribute("data-theme")).toBe("light");
   await page.getByRole("button", { name: "My wallet", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "My wallet", exact: true }),

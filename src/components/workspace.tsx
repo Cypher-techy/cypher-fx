@@ -160,7 +160,7 @@ function Sparkline({ up = true, seed = 0 }: { up?: boolean; seed?: number }) {
       <polyline
         points={points}
         fill="none"
-        stroke={up ? "#339b73" : "#ca7976"}
+        stroke={up ? "#2656a8" : "#ca7976"}
         strokeWidth="1.4"
       />
     </svg>
@@ -171,11 +171,11 @@ function Orbit() {
     <svg className="hero-orbit" viewBox="0 0 420 240" aria-hidden="true">
       <defs>
         <linearGradient id="orb" x1="0" y1="0" x2="1" y2="1">
-          <stop stopColor="#1e4934" />
-          <stop offset="1" stopColor="#568b4d" />
+          <stop stopColor="#172c50" />
+          <stop offset="1" stopColor="#3f6099" />
         </linearGradient>
       </defs>
-      <g fill="none" stroke="#709260" strokeWidth=".7" opacity=".38">
+      <g fill="none" stroke="#506ea2" strokeWidth=".7" opacity=".38">
         <ellipse
           cx="227"
           cy="120"
@@ -201,17 +201,17 @@ function Orbit() {
         <path d="M40 120h350M227 8v224" />
       </g>
       <g transform="translate(174 57)">
-        <path d="m0 52 58-34 58 34-58 34Z" fill="#356746" />
-        <path d="m0 52 58 34v55L0 107Z" fill="#244f38" />
-        <path d="m58 86 58-34v55l-58 34Z" fill="#163e2c" />
-        <path d="m0 34 58-34 58 34-58 34Z" fill="#b9df7a" />
-        <path d="m0 34 58 34v18L0 52Z" fill="#98bd61" />
-        <path d="m58 68 58-34v18L58 86Z" fill="#719a49" />
-        <path d="m58 16 26 15-26 15-26-15Z" fill="#416d39" />
+        <path d="m0 52 58-34 58 34-58 34Z" fill="#2b4571" />
+        <path d="m0 52 58 34v55L0 107Z" fill="#1d3256" />
+        <path d="m58 86 58-34v55l-58 34Z" fill="#112343" />
+        <path d="m0 34 58-34 58 34-58 34Z" fill="#6f9dea" />
+        <path d="m0 34 58 34v18L0 52Z" fill="#527fcc" />
+        <path d="m58 68 58-34v18L58 86Z" fill="#3a63a9" />
+        <path d="m58 16 26 15-26 15-26-15Z" fill="#2e4978" />
       </g>
-      <circle cx="95" cy="98" r="6" fill="#b5d87d" />
-      <circle cx="340" cy="165" r="4" fill="#759d54" />
-      <path d="M130 25h6m-3-3v6M358 72h8m-4-4v8" stroke="#70965c" />
+      <circle cx="95" cy="98" r="6" fill="#729ce3" />
+      <circle cx="340" cy="165" r="4" fill="#446bad" />
+      <path d="M130 25h6m-3-3v6M358 72h8m-4-4v8" stroke="#4c6da6" />
     </svg>
   );
 }
@@ -228,7 +228,7 @@ export default function Workspace() {
       null,
     ),
     [busy, setBusy] = useState(false),
-    [dark, setDark] = useState(false),
+    [dark, setDark] = useState(true),
     [collapsed, setCollapsed] = useState(false),
     [mobile, setMobile] = useState(false),
     [hidden, setHidden] = useState(false),
@@ -286,7 +286,7 @@ export default function Workspace() {
       try {
         setFavorites(JSON.parse(f));
       } catch {}
-    setDark(localStorage.getItem("cypher-theme") === "dark");
+    setDark(localStorage.getItem("cypher-theme") !== "light");
     const params = new URLSearchParams(location.search);
     const requestedSymbol = params.get("symbol");
     if (params.get("view") === "terminal") setPage("Trading terminal");

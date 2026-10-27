@@ -2,7 +2,7 @@
 
 ## Status
 
-Latest UI milestone: concise chart-first website with `/markets`, `/accounts`, `/tools` and `/help`. Current verification: **27 unit/domain tests and 15 browser tests**. Earlier phase descriptions and counts below are historical; the latest milestone at the end supersedes the long landing-page layout.
+Latest UI milestone: concise chart-first website with `/markets`, `/accounts`, `/tools` and `/help`. Current verification: **27 unit/domain tests and 16 browser tests**. Earlier phase descriptions and counts below are historical; the latest milestone at the end supersedes the long landing-page layout.
 
 **Working development foundation, not a complete production forex brokerage.** Live customer funds, execution and payouts remain disabled. No production deployment, external provider success, licensing decision or completed recovery drill is claimed.
 
@@ -103,3 +103,14 @@ No schema migration or real-money state transition is introduced. Additional val
 **Local preview storage note:** the restored embedded practice database could not initialize. The server was stopped, its original files were preserved (not deleted) at `.data/postgres-preserved-20261026`, and the development preview initialized a fresh `.data/postgres`. Existing browser sessions from the previous local data set may require a fresh sign-in or new practice session. These private/test database files are not included in the source archive. No real customer funds are enabled in this environment.
 
 **Limitations / next milestone:** this is a functional development website, not an authorized live brokerage. The existing provider, payment, KYC/security, legal and managed-database recovery requirements above remain open. Next: stakeholder visual sign-off, then credentialed sandbox/provider integration and production-readiness verification—not real-money enablement.
+
+
+## Blue-and-black UI update
+
+The green/forest palette is superseded by black/charcoal surfaces, electric-blue primary actions and slate-blue secondary text. Updated `website.css`, `website/landing.css` and `globals.css` cover the landing page, market explorer, account comparison, calculator, help, status, authentication forms and trading workspace. Embedded SVG accents in the explorer/workspace and the shared `price-chart.tsx` now use blue; falling candles and financial warnings keep distinct semantic colors. Public charts use a matching dark background. The workspace defaults to dark mode on first visit while respecting an explicit saved light preference. Layout, order-confirmation flow and provider/financial gates are unchanged.
+
+No schema migration or financial calculation/authorization change. Theme regression coverage was added in `tests/e2e/theme.spec.ts`; the workspace theme-toggle test now verifies the dark default and switch to light. Verification: **16 browser tests, 27 unit/domain tests, typecheck and production build pass**; desktop/mobile screenshots show no browser errors or horizontal overflow.
+
+Preview-only storage limitation: the restored file-backed PGlite store still cannot initialize. Its files have not been deleted, renamed or overwritten for this update. Browser validation and the running development preview use the existing `TEST_DB=true` option to isolate practice accounts in memory. Preview demo users, positions and support data are therefore temporary and reset when the server process stops. Normal source-code storage defaults and production PostgreSQL requirements are unchanged. Database recovery remains a separate outstanding task.
+
+The next milestone is visual sign-off on the blue/black palette. This update does not enable live trading or real-money payments.

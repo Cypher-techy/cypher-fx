@@ -15,7 +15,7 @@ npm run dev
 
 ## Website routes
 
-- `/` — concise, chart-first trading website with a dark forest palette, interactive synthetic replay, quick pairs, timeframe/pause/refresh controls and a separate server-priced practice-order review panel. Mobile Chart/Order tabs keep the main view focused.
+- `/` — concise, chart-first trading website with a blue-and-black palette, interactive synthetic replay, quick pairs, timeframe/pause/refresh controls and a separate server-priced practice-order review panel. Mobile Chart/Order tabs keep the main view focused.
 - `/markets` — full six-pair explorer with search, region filters, persistent favorites, details and chart controls.
 - `/accounts` — tabbed demo/real account comparison and server-configured starting virtual balance.
 - `/tools` — educational, server-calculated margin/pip estimator.

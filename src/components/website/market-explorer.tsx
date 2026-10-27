@@ -345,7 +345,7 @@ export function MarketExplorer({
               aria-label="Interactive market chart"
             >
               {activeData && feed.data ? (
-                <PriceChart candles={feed.data.candles} />
+                <PriceChart candles={feed.data.candles} dark />
               ) : (
                 <div className="dm-chart-loading">
                   <Loader2 className="spin" size={20} />
@@ -535,8 +535,8 @@ export function MarketPreview({
           return (
             <g
               key={c.time}
-              fill={up ? "#b5d886" : "#a98d7f"}
-              stroke={up ? "#b5d886" : "#a98d7f"}
+              fill={up ? "#7ca2e2" : "#a98d7f"}
+              stroke={up ? "#7ca2e2" : "#a98d7f"}
             >
               <path
                 d={`M${x} ${y(c.high).toFixed(3)}V${y(c.low).toFixed(3)}`}
@@ -559,7 +559,7 @@ export function MarketPreview({
             x="280"
             y="115"
             textAnchor="middle"
-            fill="#93a480"
+            fill="#728ab2"
             fontSize="11"
           >
             {feed.error

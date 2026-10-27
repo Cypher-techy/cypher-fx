@@ -27,16 +27,16 @@ export default function PriceChart({
       layout: {
         background: {
           type: ColorType.Solid,
-          color: dark ? "#17231d" : "#ffffff",
+          color: dark ? "#0b111c" : "#ffffff",
         },
-        textColor: "#8b948f",
+        textColor: dark ? "#91a5c5" : "#61728c",
         fontFamily: "Arial",
         fontSize: 10,
         attributionLogo: true,
       },
       grid: {
-        vertLines: { color: dark ? "#253329" : "#f1f3f1" },
-        horzLines: { color: dark ? "#253329" : "#f1f3f1" },
+        vertLines: { color: dark ? "#1f2939" : "#eff1f5" },
+        horzLines: { color: dark ? "#1f2939" : "#eff1f5" },
       },
       rightPriceScale: {
         borderVisible: false,
@@ -48,18 +48,18 @@ export default function PriceChart({
         secondsVisible: false,
       },
       crosshair: {
-        vertLine: { color: "#718373", labelBackgroundColor: "#234b35" },
-        horzLine: { color: "#718373", labelBackgroundColor: "#234b35" },
+        vertLine: { color: "#5f7395", labelBackgroundColor: "#1c3052" },
+        horzLine: { color: "#5f7395", labelBackgroundColor: "#1c3052" },
       },
       handleScale: true,
       handleScroll: true,
     });
     const series = chart.addSeries(CandlestickSeries, {
-      upColor: "#298b65",
+      upColor: "#3b8bff",
       downColor: "#d47b77",
-      borderUpColor: "#298b65",
+      borderUpColor: "#3b8bff",
       borderDownColor: "#d47b77",
-      wickUpColor: "#298b65",
+      wickUpColor: "#3b8bff",
       wickDownColor: "#d47b77",
     });
     chartRef.current = chart;
